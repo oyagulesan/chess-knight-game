@@ -25,7 +25,7 @@ const Canvas = () => {
         <div className="container">
             <div className="cardStyle">
                 <header className="headerStyle">Chess Knight Game</header>
-                { max === 0 && <span className="instructionStyle">Move as horse in chess and try to fill all!!!</span> }
+                { max === 0 && <span className="instructionStyle">Start clicking any square. Move as knight in chess and try to fill all squares!!!</span> }
                 { max > 0 && !finished && <span className="luckStyle">Good luck!</span> }
                 <div style={{
                     position: 'absolute',
