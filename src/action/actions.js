@@ -1,0 +1,5 @@
+export const SELECT_CELL='SELECT_CELL'
+export const DESELECT_CELL='DESELECT_CELL'
+export const RESET='RESET'
+export const SET_POSITION = 'SET_POSITION'
+export const BACK = 'BACK'
