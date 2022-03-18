@@ -5,7 +5,8 @@ import {
   DESELECT_CELL,
   RESET,
   SET_POSITION,
-  BACK
+  BACK,
+  SET_MATRIX
 } from '../action/actions.js'
 import { initialPosition } from '../util/Constants';
 
@@ -44,11 +45,15 @@ export const AppProvider = ({ children }) => {
     return state.matrix;
   }
 
+  const setMatrix = (matrix) => {
+    dispatch({ type: SET_MATRIX, payload: matrix });
+  }
+
   return (
     <AppContext.Provider
       value={{
         ...state,
-        selectCell, deselectCell, reset, getMatrix, setPosition, back
+        selectCell, deselectCell, reset, getMatrix, setPosition, back, setMatrix
       }}
     >
       {children}

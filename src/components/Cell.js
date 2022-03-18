@@ -22,13 +22,13 @@ const Cell = (props) => {
         }
         context.fillRect(0, 0, width, height);
         
-        if (isSelected && matrix[xIndex][yIndex] !== max) {
+        if (isSelected && isSelected !== true && matrix[xIndex][yIndex] !== max) {
             context.fillStyle = selectedColors[2];
             context.font = '100px serif';
             context.textAlign = 'center';
             context.fillText('' + matrix[xIndex][yIndex], 120, 100);
         }
-    }, [isHover, isSelected, max]);
+    }, [isHover, isSelected, max, matrix]);
     const divStyle = {
         position: 'absolute',
         top: yIndex * divCell + 'px',
@@ -55,6 +55,7 @@ const Cell = (props) => {
     const onMouseOver = (event) => {
         setIsHover(true);
     }
+    console.log('...render cell', xIndex, yIndex, isSelected, matrix[xIndex][yIndex])
     return <div style={divStyle} 
         onClick={onCellClick} 
         onMouseOver={onMouseOver}

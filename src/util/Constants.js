@@ -9,8 +9,8 @@ export const width = '30px';
 export const knight = require('../assets/images/knight.png');
 export const initialPosition = [180, 400];
 export const findMax = (a, b) => {
-    return a && b ? (a > b ? a : b) : (a || b || 0);
-  }
+  return a && b ? (a > b ? a : b) : (a || b || 0);
+}
   export const indexOf2dArray = (array2d, itemtofind) => {
     const index = [].concat.apply([], ([].concat.apply([], array2d))).indexOf(itemtofind);
                 
@@ -33,3 +33,60 @@ export const findMax = (a, b) => {
     return ((Math.abs(x1 - x2) === 1 && Math.abs(y1 - y2) === 2)
       || (Math.abs(x1 - x2) === 2 && Math.abs(y1 - y2) === 1));
   }
+
+  function isValidPosition(board, position) {
+		return (board[position[0]] !== undefined
+		&& board[position[0]][position[1]] !== undefined
+		&& board[position[0]][position[1]] === 1);
+	}
+	
+	function addIfValidPosition(board, moves, row, col) {
+    if (isValidPosition(board, [row, col])) {
+      moves.push([row, col]);
+    }
+  }
+
+  function getPossibleMoves(board, position) {
+		var moves = [];
+		addIfValidPosition(board, moves, position[0] + 2, position[1] + 1);
+		addIfValidPosition(board, moves, position[0] + 2, position[1] - 1);
+		addIfValidPosition(board, moves, position[0] - 2, position[1] + 1);
+		addIfValidPosition(board, moves, position[0] - 2, position[1] - 1);
+		addIfValidPosition(board, moves, position[0] + 1, position[1] + 2);
+		addIfValidPosition(board, moves, position[0] + 1, position[1] - 2);
+		addIfValidPosition(board, moves, position[0] - 1, position[1] + 2);
+		addIfValidPosition(board, moves, position[0] - 1, position[1] - 2);
+		return moves;
+  }
+
+  export function buildRandomPosition(moveCount) {
+    const max = 1000;
+		var trycount = max;
+		while(trycount > 0) {
+			trycount--;
+			var board = tryBuildingRandomPosition(moveCount);
+			if(board.length > 0) return board;
+		}
+		alert("Couldn't build in " + max + " tries");
+		return [];
+	}
+	
+	function tryBuildingRandomPosition(moveCount) {
+		const board = Array.from({length: 8}, () => {return Array.from({length: 8}, () => {return 1})});
+		let position = [getRandomInt(8), getRandomInt(8)];		
+		board[position[0]][position[1]] = 0;
+		for(var i=0; i < moveCount; i++) {
+			var moves = getPossibleMoves(board, position);
+			if(moves.length === 0) {
+				return [];
+			}
+			position = moves[getRandomInt(moves.length)];
+			board[position[0]][position[1]] = 0;			
+		}
+				
+		return board;			
+	}
+
+	function getRandomInt(max) {
+		return Math.floor(Math.random() * max);
+	}

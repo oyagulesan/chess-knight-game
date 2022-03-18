@@ -3,7 +3,8 @@ import {
   DESELECT_CELL,
   RESET,
   SET_POSITION,
-  BACK
+  BACK,
+  SET_MATRIX
 } from '../action/actions'
 import { validate, indexOf2dArray, divCell, initialPosition } from '../util/Constants';
 
@@ -43,6 +44,10 @@ const appReducer = (state, action) => {
     }) === -1;
     return { ...state, matrix, finished, position, max};
   }
+  if (action.type === SET_MATRIX) {
+    return {...state, matrix: action.payload.map((row) => row.map((cell) => cell === 1 ? true : false)),
+      finished: false, position: [...initialPosition], max: 0};
+  }
   if (action.type === DESELECT_CELL) {
     const matrix = state.matrix;
     // Find max
@@ -75,7 +80,7 @@ const appReducer = (state, action) => {
         position[0] = x1 * divCell + offset;
         position[1] = y1 * divCell + yOffset;
       } else {
-        finished = true;
+        finished = false;
       }
       return { ...state, matrix, max, position, finished};
     } else {
