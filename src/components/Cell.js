@@ -55,7 +55,6 @@ const Cell = (props) => {
     const onMouseOver = (event) => {
         setIsHover(true);
     }
-    console.log('...render cell', xIndex, yIndex, isSelected, matrix[xIndex][yIndex])
     return <div style={divStyle} 
         onClick={onCellClick} 
         onMouseOver={onMouseOver}

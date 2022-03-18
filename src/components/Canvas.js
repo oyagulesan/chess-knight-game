@@ -3,7 +3,7 @@ import '../App.css'
 import Image from './Image';
 import Cell from './Cell';
 import { useAppContext } from '../context/appContext';
-import { cellHeight, top, left, buildRandomPosition } from '../util/Constants';
+import { cellHeight, top, left, buildRandomPosition, minCount, maxCount } from '../util/Constants';
 
 const style = {
     position: 'absolute',
@@ -20,14 +20,11 @@ const style = {
 const Canvas = () => {
     const { matrix, reset, finished, max, setMatrix } = useAppContext();
     const [count, setCount] = useState(undefined);
+    const [editedCount, setEditedCount] = useState(undefined);
     const [startText, setStartText] = useState('Reset');
-    useEffect(() => {
-        console.log('..use effect matrix', matrix)
-    }, [matrix]);
     const initBoard = () => {
         if (count) {
             const initMatrix = buildRandomPosition(64 - count - 1)
-            console.log('....count', initMatrix);
             setMatrix(initMatrix);
         } else {
             reset();
@@ -36,15 +33,13 @@ const Canvas = () => {
     const onCountChange = (event) => {
         try {
             let cnt = parseInt(event.target.value);
-            setCount(cnt > 63 ? 63 : (cnt < 50 ? 50 : cnt));
+            setCount(cnt > maxCount ? maxCount : (cnt < minCount ? minCount : cnt));
             
             setStartText(cnt ? 'Start' : 'Reset');
         } catch (e) {
             setCount(undefined);
         }
     }
-
-    console.log('..render canvas');
 
     return (
         <div className="container">
@@ -83,7 +78,8 @@ const Canvas = () => {
                     className="inputStyle"
                     placeholder='Try with initially filled squares'
                     type='number'
-                    min='50' max='63' 
+                    min={minCount}
+                    max={maxCount}
                     onChange={onCountChange}
                     value={count}></input> }
                 <button className="buttonStyle" onClick={initBoard}>

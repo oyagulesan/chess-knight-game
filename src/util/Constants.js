@@ -1,3 +1,5 @@
+export const minCount = 32;
+export const maxCount = 63;
 export const cellHeight = 150;
 export const top = '120px';
 export const left = '40px';
