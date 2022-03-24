@@ -4,6 +4,7 @@ import Image from './Image';
 import Cell from './Cell';
 import { useAppContext } from '../context/appContext';
 import { cellHeight, top, left, buildRandomPosition, minCount, maxCount } from '../util/Constants';
+import congratsGif from "../assets/images/congrats.gif";
 
 const style = {
     position: 'absolute',
@@ -17,13 +18,39 @@ const style = {
     borderColor: 'black',
     display: 'flex',
 }
+let tmr = null;
 const Canvas = () => {
     const { matrix, reset, finished, max, setMatrix } = useAppContext();
-    const [count, setCount] = useState(undefined);
-    const [editedCount, setEditedCount] = useState(undefined);
+    const [count, setCount] = useState(1);
     const [startText, setStartText] = useState('Reset');
+    const [showCongrats, setShowCongrats] = useState(false);
+    useEffect(() => {
+        if (finished && tmr === null && max + count > 60) {
+            setShowCongrats(true);
+            // Start timer
+            tmr = setTimeout(() => {
+                tmr = null;
+                setShowCongrats(false);
+            }, 5000);
+        } else {
+            if (showCongrats) {
+                setShowCongrats(false);
+            }
+            if (tmr) {
+                clearInterval(tmr);
+                tmr = null;
+            }
+        }
+    }, [finished]);
+    useEffect(() => {
+        return () => {
+            if (tmr) {
+                clearInterval(tmr);
+            }
+        }
+    }, []);
     const initBoard = () => {
-        if (count) {
+        if (count > 1) {
             const initMatrix = buildRandomPosition(64 - count - 1)
             setMatrix(initMatrix);
         } else {
@@ -86,7 +113,8 @@ const Canvas = () => {
                     {startText}
                 </button>
                 { finished && <span className="spanStyle"> It is finished </span> }
-                { finished && <span className="scoreStyle"> Your score is {max} </span> }
+                { finished && <span className="scoreStyle"> Your score is {max + count} </span> }
+                { showCongrats && <img className="congratsStyle" src={congratsGif} alt="Congrats!"/> }
             </div>
         </div>
     )
