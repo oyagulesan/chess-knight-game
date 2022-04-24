@@ -101,7 +101,7 @@ const Canvas = () => {
                         })}
                     </div>
                 </div>
-                { !finished && <input
+                { false && !finished && <input
                     className="inputStyle"
                     placeholder='Try with initially filled squares'
                     type='number'
