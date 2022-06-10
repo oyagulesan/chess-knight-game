@@ -50,8 +50,8 @@ const Canvas = () => {
         }
     }, []);
     const initBoard = () => {
-        if (count > 1) {
-            const initMatrix = buildRandomPosition(64 - count - 1)
+        if (count > 0) {
+            const initMatrix = buildRandomPosition(64 - count)
             setMatrix(initMatrix);
         } else {
             reset();

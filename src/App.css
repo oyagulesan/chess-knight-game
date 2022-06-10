@@ -180,3 +180,13 @@ canvas {
     opacity:0;
   }
 }
+
+.blink_me {
+  animation: blinker 1.5s linear infinite;
+}
+
+@keyframes blinker {
+  60% {
+    opacity: 0;
+  }
+}

@@ -22,7 +22,7 @@ const Cell = (props) => {
         }
         context.fillRect(0, 0, width, height);
         
-        if (isSelected && isSelected !== true && matrix[xIndex][yIndex] !== max) {
+        if (isSelected && isSelected !== true) {
             context.fillStyle = selectedColors[2];
             context.font = '100px serif';
             context.textAlign = 'center';

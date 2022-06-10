@@ -9,7 +9,8 @@ const Image = () => {
     const knightStyle = {
       width,
       height,
-      zIndex: 300
+      zIndex: 300,
+
     }
     
     return (
@@ -27,7 +28,7 @@ const Image = () => {
         }}
         onClick={back}
       >
-        <img src={knight} alt="knight" style={knightStyle} />
+        <img src={knight} alt="knight" style={knightStyle} class="blink_me"/>
       </div>
     );
 }
