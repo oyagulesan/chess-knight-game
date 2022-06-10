@@ -21,7 +21,7 @@ const style = {
 let tmr = null;
 const Canvas = () => {
     const { matrix, reset, finished, max, setMatrix } = useAppContext();
-    const [count, setCount] = useState(1);
+    const [count, setCount] = useState(0);
     const [startText, setStartText] = useState('Reset');
     const [showCongrats, setShowCongrats] = useState(false);
     useEffect(() => {
